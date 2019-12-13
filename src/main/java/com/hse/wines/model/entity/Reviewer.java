@@ -1,26 +1,29 @@
 package com.hse.wines.model.entity;
 
-import jdk.nashorn.internal.ir.annotations.Immutable;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name = "countries")
 @Getter
 @Setter
+@Entity
 @Immutable
-public class Country {
+@Table(name = "reviewers")
+public class Reviewer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "twitter_handle")
+    private String handle;
+
     @Column(name = "name")
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
-    private List<Province> provinces;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "reviewer")
+    private List<Review> reviews;
 }

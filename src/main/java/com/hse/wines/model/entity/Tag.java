@@ -1,18 +1,17 @@
 package com.hse.wines.model.entity;
 
-import jdk.nashorn.internal.ir.annotations.Immutable;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
-import java.util.List;
 
-@Entity
-@Table(name = "countries")
 @Getter
 @Setter
 @Immutable
-public class Country {
+@Entity
+@Table(name = "tags")
+public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,7 +19,4 @@ public class Country {
 
     @Column(name = "name")
     private String name;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
-    private List<Province> provinces;
 }
