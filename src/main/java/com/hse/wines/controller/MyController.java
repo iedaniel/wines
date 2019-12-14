@@ -1,9 +1,11 @@
 package com.hse.wines.controller;
 
 import com.hse.wines.model.dto.*;
+import com.hse.wines.model.entity.Wine;
 import com.hse.wines.service.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,8 +16,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 public class MyController {
-
-    //todo сложный селект, оконные фции, аналитические фции, представления, изменение
 
     private final CountryRepository countryRepository;
     private final ReviewerRepository reviewerRepository;
@@ -84,6 +84,37 @@ public class MyController {
                 .collect(Collectors.toList());
         model.put("wineries", wineryDtoList);
         return new ModelAndView("winery", model);
+    }
+
+    @GetMapping("/insert")
+    public ModelAndView insert(Map<String, Object> model) {
+        return new ModelAndView("insert", model);
+    }
+
+    @GetMapping("/insert/wine")
+    public ModelAndView wineInsert(Map<String, Object> model) {
+        model.put("provinces", provinceRepository.findAll());
+        model.put("wineries", wineryRepository.findAll());
+        return new ModelAndView("new_wine", model);
+    }
+
+    @PostMapping("/insert/wine")
+    public ModelAndView wineNew(String title,
+                                String designation,
+                                Integer price,
+                                String variety,
+                                Long province,
+                                Long winery,
+                                Map<String, Object> model) {
+        Wine wine = new Wine();
+        wine.setTitle(title);
+        wine.setDesignation(designation);
+        wine.setPrice(price);
+        wine.setVariety(variety);
+        wine.setProvince(provinceRepository.getOne(province));
+        wine.setWinery(wineryRepository.getOne(winery));
+        wineRepository.save(wine);
+        return wineInsert(model);
     }
 
     @GetMapping("/ping")

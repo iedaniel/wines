@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <style>
+        body {
+            font-family: Verdana, sans-serif;
+        }
+
+        .inline {
+            float: left;
+            margin-right: 24px;
+            margin-bottom: 0;
+            vertical-align: center;
+            height: 100%;
+        }
+
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        #header {
+            border-bottom: 1px solid black;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+<div id="header">
+    <a href="/"><h3 class="inline">Wineries project HSE winter 2019</h3></a>
+    <div class="topnav inline">
+        <a href="/select">Сложный селект</a>
+        <a href="/window_functions">Оконные функции</a>
+        <a href="/insert">Добавление данных</a>
+    </div>
+</div>
+<div><br>
+    <form action="/insert/wine" method="post">
+        Название вина <input type="text" name="title"><br>
+        Обозначение <input type="text" name="designation"><br>
+        Цена <input type="text" name="price"><br>
+        Сорт винограда <input type="text" name="variety"><br>
+        Провинция
+        <select name="province">
+            {{#provinces}}
+                <option value="{{id}}"> {{name}} </option>
+            {{/provinces}}
+        </select> <br>
+        Производитель
+        <select name="winery">
+            {{#wineries}}
+                <option value="{{id}}"> {{name}} </option>
+            {{/wineries}}
+        </select>
+        <input type="submit" value="Создать вино">
+    </form>
+</div>
+</body>
+</html>
