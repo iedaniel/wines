@@ -28,4 +28,12 @@ public class Region {
             inverseJoinColumns = {@JoinColumn(name = "wine_id")}
     )
     private List<Wine> wines;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "reviewers_regions",
+            joinColumns = {@JoinColumn(name = "region_id")},
+            inverseJoinColumns = {@JoinColumn(name = "reviewer_id")}
+    )
+    private List<Reviewer> reviewers;
 }

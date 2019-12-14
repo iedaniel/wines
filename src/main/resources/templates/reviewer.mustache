@@ -37,6 +37,14 @@
             border-bottom: 1px solid black;
             height: 50px;
         }
+
+        .table-head {
+            background-color: #ddd;
+        }
+
+        td {
+            border: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
@@ -49,11 +57,34 @@
     </div>
 </div>
 <div><br>
-    <a href="/select/review">Отзывы</a><br>
-    <a href="/select/wine">Вина</a><br>
-    <a href="/select/province">Провинции</a><br>
-    <a href="/select/reviewer">Пользователи</a><br>
-    <a href="/select/winery">Винодельни</a><br>
+    <table>
+        <tr class="table-head">
+            <td>
+                Twitter пользователя
+            </td>
+            <td>
+                Имя пользователя
+            </td>
+            <td>
+                Обозреваемые регионы
+            </td>
+        </tr>
+        {{#reviewers}}
+            <tr>
+                <td>
+                    {{handle}}
+                </td>
+                <td>
+                    {{name}}
+                </td>
+                <td>
+                    {{#regions}}
+                        {{name}},
+                    {{/regions}}
+                </td>
+            </tr>
+        {{/reviewers}}
+    </table>
 </div>
 </body>
 </html>

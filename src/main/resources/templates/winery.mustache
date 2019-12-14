@@ -37,6 +37,14 @@
             border-bottom: 1px solid black;
             height: 50px;
         }
+
+        .table-head {
+            background-color: #ddd;
+        }
+
+        td {
+            border: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
@@ -49,11 +57,28 @@
     </div>
 </div>
 <div><br>
-    <a href="/select/review">Отзывы</a><br>
-    <a href="/select/wine">Вина</a><br>
-    <a href="/select/province">Провинции</a><br>
-    <a href="/select/reviewer">Пользователи</a><br>
-    <a href="/select/winery">Винодельни</a><br>
+    <table>
+        <tr class="table-head">
+            <td>
+                Название производителя
+            </td>
+            <td>
+                Вина производителя
+            </td>
+        </tr>
+        {{#wineries}}
+            <tr>
+                <td>
+                    {{name}}
+                </td>
+                <td>
+                    {{#wines}}
+                        {{title}},
+                    {{/wines}}
+                </td>
+            </tr>
+        {{/wineries}}
+    </table>
 </div>
 </body>
 </html>

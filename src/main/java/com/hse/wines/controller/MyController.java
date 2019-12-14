@@ -1,7 +1,6 @@
 package com.hse.wines.controller;
 
-import com.hse.wines.model.dto.ReviewDto;
-import com.hse.wines.model.dto.WineDto;
+import com.hse.wines.model.dto.*;
 import com.hse.wines.service.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,6 +57,33 @@ public class MyController {
                 .collect(Collectors.toList());
         model.put("wines", wineDtoList);
         return new ModelAndView("wine", model);
+    }
+
+    @GetMapping("/select/province")
+    public ModelAndView provinceSelect(Map<String, Object> model) {
+        List<ProvinceDto> provinceDtoList = provinceRepository.findAll().stream()
+                .map(ProvinceDto::new)
+                .collect(Collectors.toList());
+        model.put("provinces", provinceDtoList);
+        return new ModelAndView("province", model);
+    }
+
+    @GetMapping("/select/reviewer")
+    public ModelAndView reviewerSelect(Map<String, Object> model) {
+        List<ReviewerDto> reviewerDtoList = reviewerRepository.findAll().stream()
+                .map(ReviewerDto::new)
+                .collect(Collectors.toList());
+        model.put("reviewers", reviewerDtoList);
+        return new ModelAndView("reviewer", model);
+    }
+
+    @GetMapping("/select/winery")
+    public ModelAndView winerySelect(Map<String, Object> model) {
+        List<WineryDto> wineryDtoList = wineryRepository.findAll().stream()
+                .map(WineryDto::new)
+                .collect(Collectors.toList());
+        model.put("wineries", wineryDtoList);
+        return new ModelAndView("winery", model);
     }
 
     @GetMapping("/ping")

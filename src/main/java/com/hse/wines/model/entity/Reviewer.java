@@ -26,4 +26,12 @@ public class Reviewer {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "reviewer")
     private List<Review> reviews;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "reviewers_regions",
+            joinColumns = {@JoinColumn(name = "reviewer_id")},
+            inverseJoinColumns = {@JoinColumn(name = "region_id")}
+    )
+    private List<Region> regions;
 }
