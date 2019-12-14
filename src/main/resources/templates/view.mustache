@@ -37,14 +37,6 @@
             border-bottom: 1px solid black;
             height: 50px;
         }
-
-        .table-head {
-            background-color: #ddd;
-        }
-
-        td {
-            border: 1px solid #ddd;
-        }
     </style>
 </head>
 <body>
@@ -58,38 +50,11 @@
     </div>
 </div>
 <div><br>
-    <table>
-        <tr class="table-head">
-            <td>
-                Название вина
-            </td>
-            <td>
-                Отзыв
-            </td>
-            <td>
-                Оценка
-            </td>
-            <td>
-                Handle пользователя
-            </td>
-        </tr>
-        {{#reviews}}
-            <tr>
-                <td>
-                    {{wine.title}}
-                </td>
-                <td>
-                    {{description}}
-                </td>
-                <td>
-                    {{points}}
-                </td>
-                <td>
-                    {{reviewer.handle}}
-                </td>
-            </tr>
-        {{/reviews}}
-    </table>
+    <a href="/views/wine">Хорошие вина (с оценкой более 90/100)</a><br>
+    <a href="/views/cheap">Вина дешевле $10</a><br>
+    <a href="/views/french">Французские вина</a><br>
+    <a href="/views/fruit">Фруктовые вина</a><br>
+    <a href="/views/review">Отзывы от vossroger</a><br>
 </div>
 </body>
 </html>

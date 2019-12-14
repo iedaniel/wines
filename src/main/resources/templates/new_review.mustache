@@ -37,14 +37,6 @@
             border-bottom: 1px solid black;
             height: 50px;
         }
-
-        .table-head {
-            background-color: #ddd;
-        }
-
-        td {
-            border: 1px solid #ddd;
-        }
     </style>
 </head>
 <body>
@@ -58,38 +50,23 @@
     </div>
 </div>
 <div><br>
-    <table>
-        <tr class="table-head">
-            <td>
-                Название вина
-            </td>
-            <td>
-                Отзыв
-            </td>
-            <td>
-                Оценка
-            </td>
-            <td>
-                Handle пользователя
-            </td>
-        </tr>
-        {{#reviews}}
-            <tr>
-                <td>
-                    {{wine.title}}
-                </td>
-                <td>
-                    {{description}}
-                </td>
-                <td>
-                    {{points}}
-                </td>
-                <td>
-                    {{reviewer.handle}}
-                </td>
-            </tr>
-        {{/reviews}}
-    </table>
+    <form action="/insert/review" method="post">
+        Twitter Handle пользователя
+        <select name="reviewer">
+            {{#reviewers}}
+                <option value="{{id}}"> {{handle}} </option>
+            {{/reviewers}}
+        </select> <br>
+        Вино
+        <select name="wine">
+            {{#wines}}
+                <option value="{{id}}"> {{title}} </option>
+            {{/wines}}
+        </select><br>
+        Отзыв <textarea name="description"></textarea><br>
+        Оценка <input type="text" name="points"><br>
+        <input type="submit" value="Отправить отзыв">
+    </form>
 </div>
 </body>
 </html>

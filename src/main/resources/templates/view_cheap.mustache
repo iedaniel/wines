@@ -64,31 +64,19 @@
                 Название вина
             </td>
             <td>
-                Отзыв
-            </td>
-            <td>
                 Оценка
             </td>
-            <td>
-                Handle пользователя
-            </td>
         </tr>
-        {{#reviews}}
+        {{#wines}}
             <tr>
                 <td>
-                    {{wine.title}}
-                </td>
-                <td>
-                    {{description}}
+                    {{title}}
                 </td>
                 <td>
                     {{points}}
                 </td>
-                <td>
-                    {{reviewer.handle}}
-                </td>
             </tr>
-        {{/reviews}}
+        {{/wines}}
     </table>
 </div>
 </body>

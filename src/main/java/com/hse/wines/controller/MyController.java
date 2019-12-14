@@ -1,6 +1,8 @@
 package com.hse.wines.controller;
 
 import com.hse.wines.model.dto.*;
+import com.hse.wines.model.entity.Review;
+import com.hse.wines.model.entity.Reviewer;
 import com.hse.wines.model.entity.Wine;
 import com.hse.wines.service.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,11 @@ public class MyController {
     private final WineryRepository wineryRepository;
     private final WineRepository wineRepository;
     private final TagRepository tagRepository;
+    private final GoodWineRepository goodWineRepository;
+    private final CheapWineRepository cheapWineRepository;
+    private final FrenchWineRepository frenchWineRepository;
+    private final FruitWineRepository fruitWineRepository;
+    private final VossrogerRepository vossrogerRepository;
 
     @GetMapping
     public ModelAndView index(Map<String, Object> model) {
@@ -117,6 +124,77 @@ public class MyController {
         return wineInsert(model);
     }
 
+    @GetMapping("/insert/user")
+    public ModelAndView userInsert(Map<String, Object> model) {
+        return new ModelAndView("new_user", model);
+    }
+
+    @PostMapping("/insert/user")
+    public ModelAndView userNew(String handle, String name, Map<String, Object> model) {
+        Reviewer reviewer = new Reviewer();
+        reviewer.setHandle(handle);
+        reviewer.setName(name);
+        reviewerRepository.save(reviewer);
+        return userInsert(model);
+    }
+
+    @GetMapping("/insert/review")
+    public ModelAndView reviewInsert(Map<String, Object> model) {
+        model.put("reviewers", reviewerRepository.findAll());
+        model.put("wines", wineRepository.findAll());
+        return new ModelAndView("new_review", model);
+    }
+
+    @PostMapping("/insert/review")
+    public ModelAndView reviewNew(Long reviewer,
+                                  Long wine,
+                                  String description,
+                                  Integer points,
+                                  Map<String, Object> model) {
+        Review review = new Review();
+        review.setReviewer(reviewerRepository.getOne(reviewer));
+        review.setWine(wineRepository.getOne(wine));
+        review.setDescription(description);
+        review.setPoints(points);
+        reviewRepository.save(review);
+        return reviewInsert(model);
+    }
+
+    @GetMapping("/views")
+    public ModelAndView view(Map<String, Object> model) {
+        return new ModelAndView("view", model);
+    }
+
+    @GetMapping("/views/wine")
+    public ModelAndView viewWine(Map<String, Object> model) {
+        model.put("wines", goodWineRepository.findAll());
+        return new ModelAndView("view_wine", model);
+    }
+
+    @GetMapping("/views/cheap")
+    public ModelAndView cheapWine(Map<String, Object> model) {
+        model.put("wines", cheapWineRepository.findAll());
+        return new ModelAndView("view_cheap", model);
+    }
+
+    @GetMapping("/views/french")
+    public ModelAndView frenchWine(Map<String, Object> model) {
+        model.put("wines", frenchWineRepository.findAll());
+        return new ModelAndView("view_wine", model);
+    }
+
+    @GetMapping("/views/fruit")
+    public ModelAndView fruitWine(Map<String, Object> model) {
+        model.put("wines", fruitWineRepository.findAll());
+        return new ModelAndView("view_wine", model);
+    }
+
+    @GetMapping("/views/review")
+    public ModelAndView reviewView(Map<String, Object> model) {
+        model.put("reviews", vossrogerRepository.findAll());
+        return new ModelAndView("vossroger", model);
+    }
+
     @GetMapping("/ping")
     public String ping() {
         countryRepository.findAll();
@@ -127,6 +205,7 @@ public class MyController {
         wineryRepository.findAll();
         wineRepository.findAll();
         tagRepository.findAll();
+        goodWineRepository.findAll();
         return "";
     }
 }
